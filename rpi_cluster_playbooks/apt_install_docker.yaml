@@ -1,5 +1,5 @@
 - name: Ensure Docker, Docker-Compose, and Docker Swarm are installed
-  hosts: workers
+  hosts: manager
   become: yes
   become_user: root
   tasks:
