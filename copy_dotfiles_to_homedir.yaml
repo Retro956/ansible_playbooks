@@ -1,0 +1,18 @@
+- name: Copy Dotfiles to /home/retro
+  hosts: krang
+
+  tasks:
+    - name: Copy tmux.conf
+      copy: remote_src=True src=~/git/tmux.conf dest=~/.tmux.conf
+
+    - name: Copy .vimrc
+      copy: remote_src=True src=~/git/vimrc dest=~/.vimrc
+
+    - name: Create ~/.vim/colors if not exists
+      ansible.builtin.file:
+        path: ~/.vim/colors
+        state: directory
+        mode: '0755'
+
+    - name: Copy nachtleben.vim to ~/.vim/colors
+      copy: remote_src=True src=~/git/nachtleben.vim dest=~/.vim/colors

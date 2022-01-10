@@ -1,0 +1,28 @@
+- name: Playbook to install software
+  become: true
+  hosts: krang
+
+  tasks:
+    - name: Ensure vim is installed
+      apt:
+        name: vim
+        state: present
+        update_cache: true
+
+    - name: Ensure git is installed
+      apt:
+        name: git
+        state: present
+        update_cache: true
+
+    - name: Ensure wget is installed
+      apt:
+        name: wget
+        state: present
+        update_cache: true
+
+    - name: Ensure exuberant-ctags is installed for vim
+      apt:
+        name: exuberant-ctags
+        state: present
+        update_cache: true

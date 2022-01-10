@@ -1,0 +1,37 @@
+- name: Non Elevated Playbook
+  hosts: picluster
+  tasks:
+
+    - name: GIT Clone Dotfiles into ~/git/dotfiles
+      ansible.builtin.git:
+        repo: https://github.com/retro956/dotfiles.git
+        dest: ~/git/dotfiles
+        version: master
+      environment:
+        GIT_TERMINAL_PROMPT: 0
+
+    - name: GIT Clone Vundle
+      ansible.builtin.git:
+        repo: https://github.com/VundleVim/Vundle.vim.git
+        dest: ~/.vim/bundle/Vundle.vim
+        version: master
+      environment:
+        GIT_TERMINAL_PROMPT: 0
+
+    - name: Copy tmux.conf
+      copy: remote_src=True src=~/git/dotfiles/tmux.conf dest=~/.tmux.conf
+
+    - name: Copy .vimrc
+      copy: remote_src=True src=~/git/dotfiles/vimrc dest=~/.vimrc
+
+    - name: Create ~/.vim/colors if not exists
+      ansible.builtin.file:
+        path: ~/.vim/colors
+        state: directory
+        mode: '0755'
+
+    - name: Copy nachtleben.vim to ~/.vim/colors
+      copy: remote_src=True src=~/git/dotfiles/nachtleben.vim dest=~/.vim/colors
+
+    - name: Trigger Vundle PluginInstall
+      ansible.builtin.shell: vim -c "PluginInstall" -c qa

@@ -1,0 +1,9 @@
+- name: Make Directory at Specified Location
+  hosts: krang
+
+  tasks:
+    - name: Creating a Diretory (~/testing)
+      ansible.builtin.file:
+        path: ~/git
+        state: directory
+        mode: '0755'

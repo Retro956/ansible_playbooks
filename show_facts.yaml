@@ -1,0 +1,5 @@
+- hosts: krang
+  tasks:
+    - name: Show Facts Available on the System
+      ansible.builtin.debug:
+        var: ansible_facts

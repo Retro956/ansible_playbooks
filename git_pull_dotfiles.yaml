@@ -1,0 +1,12 @@
+- name: Git clone dotfiles
+  hosts: krang
+
+  tasks:
+    - name: Cloning Dotfiles into ~/git
+      ansible.builtin.git:
+        repo: https://github.com/retro956/dotfiles.git
+        dest: ~/git
+        version: master
+      environment:
+        GIT_TERMINAL_PROMPT: 0 # reports "terminal prompts disabled" on missing password
+        # Alternatively, GIT_ASKPASS: /bin/true reports "Authentication failed" on missing password

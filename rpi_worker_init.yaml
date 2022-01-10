@@ -1,0 +1,34 @@
+- name: Elevated Playbook
+  hosts: picluster
+  become: yes
+  become_user: root
+  tasks:
+    - name: Update Repos
+      apt: update_cache=yes cache_valid_time=3600
+
+    - name: Upgrade Repos
+      apt: upgrade=yes cache_valid_time=3600
+
+    - name: Ensure vim is installed
+      apt:
+        name: vim
+        state: present
+        update_cache: true
+
+    - name: Ensure git is installed
+      apt:
+        name: git
+        state: present
+        update_cache: true
+
+    - name: Ensure wget is installed
+      apt:
+        name: wget
+        state: present
+        update_cache: true
+
+    - name: Ensure exuberant-ctags is installed for vim
+      apt:
+        name: exuberant-ctags
+        state: present
+        update_cache: true

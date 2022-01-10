@@ -1,0 +1,14 @@
+- name: Git clone dotfiles
+  hosts: krang
+
+  tasks:
+    - name: Cloning Dotfiles into ~/git
+      ansible.builtin.git:
+        repo: https://github.com/VundleVim/Vundle.vim.git
+        dest: ~/.vim/bundle/Vundle.vim
+        version: master
+      environment:
+        GIT_TERMINAL_PROMPT: 0
+
+    - name: Trigger Vundle PluginInstall
+      ansible.builtin.shell: vim -c "PluginInstall" -c qa
