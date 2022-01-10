@@ -1,6 +1,6 @@
 - name: Playbook to install software
   become: true
-  hosts: krang
+  hosts: ansible_hosts
 
   tasks:
     - name: Ensure vim is installed

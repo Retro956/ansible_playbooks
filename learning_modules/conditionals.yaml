@@ -1,6 +1,6 @@
 - name: Check Conditionals
   become: false
-  hosts: krang
+  hosts: ansible_hosts
 
   vars:
     epic: true

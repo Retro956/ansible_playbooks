@@ -1,5 +1,5 @@
 - name: Copy Dotfiles to /home/retro
-  hosts: krang
+  hosts: ansible_hosts
 
   tasks:
     - name: Copy tmux.conf

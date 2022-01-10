@@ -1,5 +1,5 @@
 - name: Git clone dotfiles
-  hosts: krang
+  hosts: ansible_hosts
 
   tasks:
     - name: Cloning Dotfiles into ~/git

@@ -1,4 +1,4 @@
-- hosts: krang
+- hosts: ansible_host
   tasks:
     - name: Show Facts Available on the System
       ansible.builtin.debug:
