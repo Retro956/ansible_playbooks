@@ -1,0 +1,14 @@
+---
+- name: Encryption demo
+  hosts: localhost
+  gather_facts: false
+  become: true
+  vars_files:
+    - fake_cred.yaml
+
+  tasks:
+    - name: add a user
+      user:
+        name: '{{ user }}'
+        group: 'docker'
+        password: "{{ passwd | password_hash('sha512') }}"

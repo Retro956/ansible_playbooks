@@ -19,10 +19,18 @@
         GIT_TERMINAL_PROMPT: 0
 
     - name: Copy tmux.conf
-      copy: remote_src=True src=~/git/dotfiles/tmux.conf dest=~/.tmux.conf
+      ansible.builtin.copy:
+        remote_src: true
+        src: ~/git/dotfiles/tmux.conf
+        dest: ~/.tmux.conf
+        mode: '0755'
 
     - name: Copy .vimrc
-      copy: remote_src=True src=~/git/dotfiles/vimrc dest=~/.vimrc
+      ansible.builtin.copy:
+        remote_src: true
+        src: ~/git/dotfiles/vimrc
+        dest: ~/.vimrc
+        mode: '0755'
 
     - name: Create ~/.vim/colors if not exists
       ansible.builtin.file:
@@ -31,7 +39,13 @@
         mode: '0755'
 
     - name: Copy nachtleben.vim to ~/.vim/colors
-      copy: remote_src=True src=~/git/dotfiles/nachtleben.vim dest=~/.vim/colors
+      ansible.builtin.copy:
+        remote_src: true
+        src: ~/git/dotfiles/nachtleben.vim
+        dest: ~/.vim/colors
+        mode: '0755'
 
     - name: Trigger Vundle PluginInstall
       ansible.builtin.shell: vim -c "PluginInstall" -c qa
+      register: vim_output
+      changed_when: vim_output.rc != 0
