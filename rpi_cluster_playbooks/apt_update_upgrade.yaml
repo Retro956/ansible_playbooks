@@ -1,9 +1,0 @@
-- hosts: all
-  become: yes
-  become_user: root
-  tasks:
-    - name: Update Repos
-      apt: update_cache=yes cache_valid_time=3600
-
-    - name: Upgrade Repos
-      apt: upgrade=yes cache_valid_time=3600

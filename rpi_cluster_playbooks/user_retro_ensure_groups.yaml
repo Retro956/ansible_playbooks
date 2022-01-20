@@ -1,9 +1,0 @@
-- name: Edit User Groups
-  hosts: workers
-  become_user: root
-  become: yes
-  tasks:
-    - name: Ensure retro is added to correct groups
-      user:
-        name: retro
-        groups: "sudo,docker,adm,dialout,cdrom,audio,video,plugdev,games,users,input,netdev,docker,gpio,i2c,spi"
