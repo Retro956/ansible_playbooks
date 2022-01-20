@@ -9,34 +9,17 @@
   tags:
     - apt_upgrade
 
-- name: Ensure vim is installed
+- name: Ensure packages are installed
   become: true
   become_user: root
+  with_items:
+    - vim
+    - git
+    - wget
+    - tmux
+    - exuberant-ctags
   apt:
-    name: vim
+    name: "{{ item }}"
     state: latest
   tags:
-    - install_vim
-
-- name: Ensure git is installed
-  become: true
-  become_user: root
-  apt:
-    name: git
-    state: latest
-  tags:
-    - install_git
-
-- name: Ensure wget is installed
-  become: true
-  become_user: root
-  apt:
-    name: wget
-    state: latest
-  tags:
-    - install_wget
-
-- name: Ensure exuberant-ctags is installed
-  apt:
-    name: exuberant-ctags
-    state: latest
+    - install_packages
