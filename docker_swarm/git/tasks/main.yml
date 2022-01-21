@@ -1,0 +1,43 @@
+---
+# tasks file for git
+- name: Git clone dotfiles into ~/git/dotfiles
+  git:
+    repo: https://github.com/retro956/dotfiles.git
+    dest: ~/git/dotfiles
+    version: master
+  environment:
+    GIT_TERMINAL_PROMPT: 0
+
+- name: Git clone Vundle
+  git:
+    repo: https://github.com/VundleVim/Vundle.vim.git
+    dest: ~/.vim/bundle/Vundle.vim
+    version: master
+  environment:
+    GIT_TERMINAL_PROMPT: 0
+
+- name: Copy tmux.conf
+  copy:
+    remote_src: true
+    src: ~/git/dotfiles/tmux.conf
+    dest: ~/.tmux.conf
+    mode: 0755
+
+- name: Copy vimrc
+  copy:
+    remote_src: true
+    src: ~/git/dotfiles/vimrc
+    dest: ~/.vimrc
+    mode: 0755
+
+- name: Create ~/.vim/colors if not exists
+  copy:
+    remote_src: true
+    src: ~/git/dotfiles/nachtleben.vim
+    dest: ~/.vim/colors
+    mode: 0755
+
+- name: Trigger Vundle PluginInstall
+  shell: vim -c "PluginInstall" -c qa
+  register: vim_output
+  changed_when: vim_output.rc != 0
