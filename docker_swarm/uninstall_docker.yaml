@@ -1,0 +1,15 @@
+- hosts: all
+  become: true
+  become_user: root
+
+  tasks:
+    - name: remove docker-compose
+      apt:
+        name: docker-compose
+        state: absent
+
+    - name: remove docker.io
+      apt:
+        name: docker.io
+        state: absent
+        autoremove: yes
