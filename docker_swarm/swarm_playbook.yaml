@@ -34,15 +34,3 @@
       shell: >
         docker swarm join --token {{ hostvars.shredder.worker_token.stdout }} 10.5.11.7:2377
       when: ansible_default_ipv4.address != "10.5.11.7"
-
-    - name: Return node list
-      shell: docker node ls
-      deligate_to: shredder
-      register: docker_node_info
-      tags: list_docker_nodes
-      notify: docker_info_complete
-
-  handlers:
-    - name: docker_info_complete
-      debug:
-        msg: docker_info_complete.stdout
