@@ -1,4 +1,4 @@
-# Ansible Udemy Course
+# Ansible Notes
 
 ## Config Files
 Ansible can take in configuration files to help modify how things should 
