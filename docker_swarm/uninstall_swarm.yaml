@@ -1,0 +1,23 @@
+- hosts: pi_cluster
+  become: true
+  become_user: root
+
+  tasks:
+    - name: Leave swarm cluster
+      shell: docker swarm leave --force
+      tags: leave_swarm_only
+
+    - name: Remove docker-compose
+      apt:
+        name: docker-compose
+        state: absent
+      tags: 
+        - uninstall_docker
+        - uninstall_docker_compose_only
+
+    - name: Remove docker.io
+      apt:
+        name: docker.io
+        state: absent
+        autoremove: yes
+      tags: uninstall_docker

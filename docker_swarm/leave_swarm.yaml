@@ -1,4 +1,0 @@
-- hosts: pi_cluster
-  tasks:
-    - name: Leave Swarm
-      shell: docker swarm leave --force
