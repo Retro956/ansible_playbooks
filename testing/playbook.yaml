@@ -1,0 +1,6 @@
+- hosts: pi_cluster
+  tasks:
+
+    - name: Show hostname
+      debug:
+        msg: "{{ ansible_facts.hostname }}"

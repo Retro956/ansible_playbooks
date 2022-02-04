@@ -1,0 +1,14 @@
+- hosts: pi_cluster
+  become: true
+  become_user: root
+
+  tasks:
+    - name: Uninstall k3s agents
+      command: sh /usr/local/bin/k3s-agent-uninstall.sh
+      ignore_errors: true
+      when: inventory_hostname in groups["workers"]
+
+    - name: Uninstall k3s masters
+      command: sh /usr/local/bin/k3s-uninstall.sh
+      ignore_errors: true
+      when: inventory_hostname in groups["managers"]

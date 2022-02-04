@@ -1,0 +1,31 @@
+- hosts: pi_cluster
+  become: true
+  become_user: root
+
+  tasks:
+    - name: Get k3s script
+      uri:
+        url: https://get.k3s.io
+        dest: /home/retro/k3s.sh
+        mode: '+x'
+      tags:
+        - install_k3s
+
+    - name: K3s init masters
+      command: sh /home/retro/k3s.sh
+      tags:
+        - install_k3s
+      when: inventory_hostname in groups["managers"]
+
+    - name: Get master node token
+      command: cat /var/lib/rancher/k3s/server/node-token
+      register: node_token
+      when: inventory_hostname in groups["managers"]
+
+    - name: K3s init workers
+      shell: K3S_NODE_NAME="{{ansible_facts.hostname}}" K3S_URL="https://10.5.11.7:6443" K3S_TOKEN="{{hostvars.shredder.node_token.stdout}}" sh /home/retro/k3s.sh
+      when: inventory_hostname in groups["workers"]
+
+  handlers:
+    - name: Check if joined
+      command: "k3s kubectl get node"
