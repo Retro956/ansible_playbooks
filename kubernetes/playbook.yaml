@@ -25,7 +25,3 @@
     - name: K3s init workers
       shell: K3S_NODE_NAME="{{ansible_facts.hostname}}" K3S_URL="https://10.5.11.7:6443" K3S_TOKEN="{{hostvars.shredder.node_token.stdout}}" sh /home/retro/k3s.sh
       when: inventory_hostname in groups["workers"]
-
-  handlers:
-    - name: Check if joined
-      command: "k3s kubectl get node"
