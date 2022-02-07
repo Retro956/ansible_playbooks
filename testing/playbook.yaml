@@ -1,6 +1,16 @@
 - hosts: pi_cluster
   tasks:
+    - name: Get Disk Usage - Copying Files
+      copy:
+        dest: /tmp/
+        src: /media/data/ansible/ansible_playbooks/testing/main.py
 
-    - name: Show hostname
+    - name: Get Disk Usage - Execute Command
+      shell: python /tmp/main.py
+      register: pi_cluster_info
+      notify: Get Disk Usage - Results
+
+  handlers:
+    - name: Get Disk Usage - Results
       debug:
-        msg: "{{ ansible_facts.hostname }}"
+        msg: "{{ pi_cluster_info.stdout }}"
