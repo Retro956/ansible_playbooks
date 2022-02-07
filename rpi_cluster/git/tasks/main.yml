@@ -2,7 +2,7 @@
 # tasks file for git
 - name: Git clone dotfiles into ~/git/dotfiles
   git:
-    repo: https://github.com/retro956/dotfiles.git
+    repo: https://github.com/kylrmoore/dotfiles.git
     dest: ~/git/dotfiles
     version: master
   environment:

@@ -12,3 +12,9 @@
       command: sh /usr/local/bin/k3s-uninstall.sh
       ignore_errors: true
       when: inventory_hostname in groups["managers"]
+
+    - name: Uninstall docker
+      apt:
+        name: docker.io
+        state: absent
+        autoremove: true

@@ -11,17 +11,27 @@
       tags:
         - install_k3s
 
-    - name: K3s init masters
+    - name: Install Docker
+      apt:
+        update_cache: true
+        name: docker.io
+        state: latest
+      tags:
+        - install_docker
+
+    - name: K3s init managers
       command: sh /home/retro/k3s.sh
       tags:
         - install_k3s
       when: inventory_hostname in groups["managers"]
 
-    - name: Get master node token
+    - name: Get manager node token
       command: cat /var/lib/rancher/k3s/server/node-token
       register: node_token
       when: inventory_hostname in groups["managers"]
 
     - name: K3s init workers
+      # I think I can make this a little more general so that any number of managers 
+      # can be used
       shell: K3S_NODE_NAME="{{ansible_facts.hostname}}" K3S_URL="https://10.5.11.7:6443" K3S_TOKEN="{{hostvars.shredder.node_token.stdout}}" sh /home/retro/k3s.sh
       when: inventory_hostname in groups["workers"]
